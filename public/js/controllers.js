@@ -44,5 +44,8 @@ angular.module('myApp.controllers', []).
             });
 
         $scope.districtsColors = 'green';
+        $scope.districtClickHandler = function(district){
+            console.log('district', district);
+        }
 
     });

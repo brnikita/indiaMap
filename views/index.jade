@@ -2,7 +2,7 @@ extends layout
 
 block body
     div(ng-controller='AppCtrl')
-        div(india-map, states="states", districts="districts", districts-colors="districtsColors")
+        div(india-map, states="states", districts="districts", districts-colors="districtsColors", class="india-map", district-click-handler='districtClickHandler')
     script(src='js/lib/angular/angular.js')
     script(src='js/lib/jquery-1.11.3.min.js')
     script(src='js/lib/d3.min.js')

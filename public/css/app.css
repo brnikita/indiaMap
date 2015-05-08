@@ -1,9 +1,25 @@
 /* app css stylesheet */
 
 .india-map {
-    width: 400px;
+    width: 700px;
 }
 
 .india-map .background {
     fill: #fff;
+}
+
+.india-map .green {
+    fill: #green;
+}
+
+.india-map .red {
+    fill: #red;
+}
+
+.india-map .yellow {
+    fill: #yellow;
+}
+
+.india-map .blue {
+    fill: #yellow;
 }

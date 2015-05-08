@@ -174,14 +174,38 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
                 }
             }
 
+            function setDistrictsClasses() {
+                var districts = scope.districts,
+                    districtsClasses = scope.districtsClasses;
+
+                if (!angular.isArray(districts)) {
+                    return;
+                }
+
+                if (!angular.isObject(districtsClasses)) {
+                    return;
+                }
+
+                angular.forEach(districtsClasses, function (className, districtName) {
+                    districtName = districtName.toLowerCase();
+                    $svg.select('#distrcit_' + districtName)
+                        .attr('class', className);
+                });
+            }
+
             scope.$watch('states', function (states) {
                 if (angular.isArray(states)) {
                     $states.selectAll('path')
                         .data(states)
                         .enter()
                         .append('path')
+                        .attr('id', function (state) {
+                            return 'state_' + state._id;
+                        })
                         .attr('d', path)
                         .on('click', stateClickHandler);
+
+                    setStatesClasses();
                 }
             });
 
@@ -191,24 +215,30 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
                         .data(districts)
                         .enter()
                         .append('path')
+                        .attr('id', function (district) {
+                            return 'district_' + district._id;
+                        })
                         .attr('d', path)
                         .on('click', districtClickHandler);
+
+                    setDistrictsClasses();
                 }
             });
 
             scope.$watch('blocks', function (blocks) {
                 if (angular.isArray(blocks)) {
                     $blocks.selectAll('path')
-                        .data(states)
+                        .data(blocks)
                         .enter()
                         .append('path')
+                        .attr('id', function (block) {
+                            return 'block_' + block._id;
+                        })
                         .attr('d', path)
                         .on('click', blockClickHandler);
-                }
-            });
 
-            $svg.on('click', function () {
-                debugger;
+                    setBlocksClasses();
+                }
             });
 
             initializeMap();

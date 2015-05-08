@@ -23,3 +23,7 @@
 .india-map .blue {
     fill: blue;
 }
+
+.india-map__district:hover{
+    fill: #ffda33;
+}

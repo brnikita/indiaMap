@@ -84,7 +84,6 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
 
             function resetMap() {
                 zoom(getCoordinates());
-
             }
 
             function zoom(xyz) {
@@ -251,6 +250,7 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
                             return 'state_' + state._id;
                         })
                         .attr('d', path)
+                        .attr('class', 'india-map__state')
                         .on('click', stateClickHandler);
 
                     setStatesClasses();
@@ -266,6 +266,7 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
                         .attr('id', function (district) {
                             return 'district_' + district._id;
                         })
+                        .attr('class', 'india-map__district')
                         .attr('d', path)
                         .on('click', districtClickHandler);
 
@@ -282,6 +283,7 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
                         .attr('id', function (block) {
                             return 'block_' + block._id;
                         })
+                        .attr('class', 'india-map__block')
                         .attr('d', path)
                         .on('click', blockClickHandler);
 

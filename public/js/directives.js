@@ -64,9 +64,9 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
                     .attr('height', height)
                     .on('click', resetMap);
 
-                $states = $svg.append('g');
-                $districts = $svg.append('g');
-                $blocks = $svg.append('g');
+                $blocks = $svg.append('g').attr('id', 'blocks');
+                $districts = $svg.append('g').attr('id', 'districts');
+                $states = $svg.append('g').attr('id', 'provinces');
 
                 setMapSize();
             }

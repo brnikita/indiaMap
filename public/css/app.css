@@ -8,6 +8,17 @@
     fill: #fff;
 }
 
+#provinces {
+    fill: none;
+    stroke: #FFF;
+    stroke-width: .25;
+}
+
+#districts {
+    stroke: #ffffff;
+    stroke-width: .15;
+}
+
 .india-map .green {
     fill: green;
 }
@@ -24,6 +35,6 @@
     fill: blue;
 }
 
-.india-map__district:hover{
+.india-map__district:hover {
     fill: #ffda33;
 }

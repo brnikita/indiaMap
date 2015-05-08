@@ -43,11 +43,20 @@ angular.module('myApp.controllers', []).
                 $scope.districts = getDistricts(data);
             });
 
-        $scope.districtsClasses = {
-            'Darbhanga': 'green',
-            'Mandsaur': 'yellow',
-            'Odisha': 'red'
-        };
+        $scope.districtsClasses = [
+            {
+                _id: '5539cb979218ca05e1a66d42',
+                className: 'green'
+            },
+            {
+                _id: '5539cb979218ca05e1a66d4b',
+                className: 'red'
+            },
+            {
+                _id: '5539cb979218ca05e1a66d55',
+                className: 'yellow'
+            }
+        ];
 
         $scope.districtClickHandler = function (district) {
             console.log('district', district);

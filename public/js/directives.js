@@ -5,8 +5,35 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
             states: '=',
             districts: '=',
             blocks: '=',
+            /**
+             * List of states with classes
+             * [
+             *  {
+             *    _id: '23423423',
+             *    className: 'green'
+             *  }
+             * ]
+             */
             statesClasses: '=',
+            /**
+             * List of districts with classes
+             * [
+             *  {
+             *    _id: '23423423',
+             *    className: 'green'
+             *  }
+             * ]
+             */
             districtsClasses: '=',
+            /**
+             * List of blocks with classes
+             * [
+             *  {
+             *    _id: '23423423',
+             *    className: 'green'
+             *  }
+             * ]
+             */
             blocksClasses: '=',
             statesTooltips: '=',
             districtsTooltips: '=',
@@ -128,13 +155,23 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
                 }
 
                 angular.forEach(states, function (stateItem) {
-                    var properties = stateItem.properties;
+                    var properties = stateItem.properties,
+                        itemStateName;
 
                     if (!angular.isDefined(properties['ENGTYPE_1'])) {
                         return;
                     }
 
-                    if (properties.state === stateName) {
+                    itemStateName = properties.state;
+
+                    if (!itemStateName) {
+                        return;
+                    }
+
+                    itemStateName = properties.state.toLowerCase();
+                    stateName = stateName.toLowerCase();
+
+                    if (itemStateName === stateName) {
                         state = stateItem;
                     }
                 });
@@ -182,15 +219,26 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
                     return;
                 }
 
-                if (!angular.isObject(districtsClasses)) {
+                if (!angular.isArray(districtsClasses)) {
                     return;
                 }
 
-                angular.forEach(districtsClasses, function (className, districtName) {
-                    districtName = districtName.toLowerCase();
-                    $svg.select('#distrcit_' + districtName)
+                angular.forEach(districtsClasses, function (districtClassValue) {
+                    var districtId = districtClassValue._id,
+                        className = districtClassValue.className;
+
+                    $svg.select('#district_' + districtId)
                         .attr('class', className);
+                    console.log($svg.select('#district_' + districtId));
                 });
+            }
+
+            function setStatesClasses() {
+
+            }
+
+            function setBlocksClasses() {
+
             }
 
             scope.$watch('states', function (states) {

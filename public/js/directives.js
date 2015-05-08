@@ -161,13 +161,13 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
                         return;
                     }
 
-                    itemStateName = properties.state;
+                    itemStateName = properties['NAME_1'];
 
                     if (!itemStateName) {
                         return;
                     }
 
-                    itemStateName = properties.state.toLowerCase();
+                    itemStateName = itemStateName.toLowerCase();
                     stateName = stateName.toLowerCase();
 
                     if (itemStateName === stateName) {
@@ -228,7 +228,6 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
 
                     $svg.select('#district_' + districtId)
                         .attr('class', className);
-                    console.log($svg.select('#district_' + districtId));
                 });
             }
 

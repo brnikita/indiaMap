@@ -5,9 +5,9 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
             states: '=',
             districts: '=',
             blocks: '=',
-            statesColors: '=',
-            districtsColors: '=',
-            blocksColors: '=',
+            statesClasses: '=',
+            districtsClasses: '=',
+            blocksClasses: '=',
             statesTooltips: '=',
             districtsTooltips: '=',
             blockTooltips: '=',
@@ -26,9 +26,23 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
                     translate([width / 2, height / 2]).
                     rotate([(bounds[0][0] + bounds[1][0]) / -2, (bounds[0][1] + bounds[1][1]) / -2]),
                 path = d3.geo.path().projection(projection),
-                $states = $svg.append('g'),
-                $districts = $svg.append('g'),
+                $states,
+                $districts,
+                $blocks;
+
+            function initializeMap() {
+                $svg.append('rect')
+                    .attr('class', 'background')
+                    .attr('width', width)
+                    .attr('height', height)
+                    .on('click', resetMap);
+
+                $states = $svg.append('g');
+                $districts = $svg.append('g');
                 $blocks = $svg.append('g');
+
+                setMapSize();
+            }
 
             function setMapSize() {
                 var containerWidth = $(htmlElement).width();
@@ -39,6 +53,11 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
                     .attr('height', containerWidth * height / width + 'px')
                     .style('width', containerWidth + 'px')
                     .style('height', containerWidth * height / width + 'px');
+            }
+
+            function resetMap() {
+                zoom(getCoordinates());
+
             }
 
             function zoom(xyz) {
@@ -66,12 +85,23 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
             }
 
             function getCoordinates(element) {
-                var bounds = path.bounds(element),
-                    widthScale = (bounds[1][0] - bounds[0][0]) / width,
-                    heightScale = (bounds[1][1] - bounds[0][1]) / height,
-                    z = 0.9 * 0.75 / Math.max(widthScale, heightScale),
-                    x = (bounds[1][0] + bounds[0][0]) / 2,
-                    y = (bounds[1][1] + bounds[0][1]) / 2 + (height / z / 20);
+                var bounds,
+                    widthScale,
+                    heightScale,
+                    z,
+                    x,
+                    y;
+
+                if (!angular.isDefined(element)) {
+                    return [width / 2, height / 2, 1];
+                }
+
+                bounds = path.bounds(element);
+                widthScale = (bounds[1][0] - bounds[0][0]) / width;
+                heightScale = (bounds[1][1] - bounds[0][1]) / height;
+                z = 0.9 * 0.75 / Math.max(widthScale, heightScale);
+                x = (bounds[1][0] + bounds[0][0]) / 2;
+                y = (bounds[1][1] + bounds[0][1]) / 2 + (height / z / 20);
 
                 return [x, y, z];
             }
@@ -177,7 +207,11 @@ angular.module('myApp.directives', []).directive('indiaMap', function () {
                 }
             });
 
-            setMapSize();
+            $svg.on('click', function () {
+                debugger;
+            });
+
+            initializeMap();
         }
     }
 });

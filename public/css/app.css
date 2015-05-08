@@ -3,3 +3,7 @@
 .india-map {
     width: 400px;
 }
+
+.india-map .background {
+    fill: #fff;
+}
